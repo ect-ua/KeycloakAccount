@@ -4,7 +4,7 @@ import KeyCloakRest as cloak
 import json
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 api = Api(app)
 
 #

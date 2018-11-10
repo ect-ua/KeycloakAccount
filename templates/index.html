@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Criação de contas ECT-UA</title>
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" action="#" method="post">
+                    <span class="login100-form-title p-b-26">
+                        Cria a tua conta
+                    </span>
+                    <span class="login100-form-title p-b-48">
+                        <img src="images/icons/logo.png" width="100%">
+                    </span>
+    
+                    <div class="wrap-input100">
+                        <input title="Introduz o teu primeiro nome" class="input100" type="text" name="Firstname" id="firstname" required pattern="^[a-zA-Z\sÀ-ú]*$" />
+                        <span class="focus-input100" data-placeholder="Primeiro nome"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+                        <input title="Introduz o teu último nome" class="input100" type="text" name="Lastname" id="lastname" pattern="^[a-zA-Z\sÀ-ú]*$" required />
+                        <span class="focus-input100" data-placeholder="Último nome"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+                        <input title="Introduz o teu número mecanográfico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([2-8][0-9]{4}|9[0-8][0-9]{3}|99[0-8][0-9]{2}|999[0-8][0-9]|9999[0-9]|100000)$" />
+                        <span class="focus-input100" data-placeholder="Número mecanográfico"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+                        <input title="Introduz o teu email da UA" class="input100" type="email" name="email" id="email" required pattern=".+@ua.pt" />
+                        <span class="focus-input100" data-placeholder="E-mail"></span>
+                    </div>
+
+                    <div class="wrap-input100">
+                        <input title="Introduz o teu nome de utilizador usando apenas . - e _ como caracteres especiais" class="input100" type="text" name="username" id="username" required pattern="^[a-zA-Z0-9._-]{3,50}$" />
+                        <span class="focus-input100" data-placeholder="Nome de utilizador"></span>
+                    </div>
+    
+                    <div class="wrap-input100">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input title="Introduz a tua palavra-passe" class="input100" type="password" name="password" id="password" required />
+                        <span class="focus-input100" data-placeholder="Palavra-passe"></span>
+                    </div>
+                        
+                    <div class="wrap-input100">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input title="Introduz novamente a tua palavra-passe" class="input100" type="password" name="confirm_password" id="confirm_password" />
+                        <span class="focus-input100" data-placeholder="Confirmar palavra-passe"></span>
+                    </div>
+    
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="submit">Submeter</button>
+                        </div>
+                    </div>
+    
+                    <!-- <div class="text-center p-t-115">
+                        <span class="txt1">
+                            Don’t have an account?
+                        </span>
+    
+                        <a class="txt2" href="#">
+                            Sign Up
+                        </a>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script>
+    (function ($) {
+        $.fn.serializeFormJSON = function () {
+
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    })(jQuery);
+
+    $('form').submit(function (e) {
+        e.preventDefault();
+        var data = $(this).serializeFormJSON();
+
+        if((data["username"]).toLowerCase().endsWith('kek')){
+            return alert("No 'bot' in username");
+        }
+
+        $.ajax
+        ({
+            type: "POST",
+            url: '/',
+            async: false,
+            //json object to sent to the authentication url
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+        })
+    });
+</script>
+
+<script>
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword(){
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("As palavras-passe não correspondem.");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
+
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+
+<script src="vendor/animsition/js/animsition.min.js"></script>
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="vendor/daterangepicker/moment.min.js"></script>
+<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<script src="vendor/countdowntime/countdowntime.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
