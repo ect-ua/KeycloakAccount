@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Criação de contas ECT-UA</title>
-    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <title>Criacao de contas ECT-UA</title>
+    <link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
     
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="static/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="static/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="static/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="static/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="static/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="static/css/main.css">
 </head>
 
 <body>
@@ -29,7 +29,7 @@
                         Cria a tua conta
                     </span>
                     <span class="login100-form-title p-b-48">
-                        <img src="images/icons/logo.png" width="100%">
+                        <img src="static/images/icons/logo.png" width="100%">
                     </span>
     
                     <div class="wrap-input100">
@@ -38,13 +38,13 @@
                     </div>
 
                     <div class="wrap-input100">
-                        <input title="Introduz o teu último nome" class="input100" type="text" name="Lastname" id="lastname" pattern="^[a-zA-Z\sÀ-ú]*$" required />
-                        <span class="focus-input100" data-placeholder="Último nome"></span>
+                        <input title="Introduz o teu ultimo nome" class="input100" type="text" name="Lastname" id="lastname" pattern="^[a-zA-Z\sÀ-ú]*$" required />
+                        <span class="focus-input100" data-placeholder="Ultimo nome"></span>
                     </div>
 
                     <div class="wrap-input100">
-                        <input title="Introduz o teu número mecanográfico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([2-8][0-9]{4}|9[0-8][0-9]{3}|99[0-8][0-9]{2}|999[0-8][0-9]|9999[0-9]|100000)$" />
-                        <span class="focus-input100" data-placeholder="Número mecanográfico"></span>
+                        <input title="Introduz o teu numero mecanografico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([2-8][0-9]{4}|9[0-8][0-9]{3}|99[0-8][0-9]{2}|999[0-8][0-9]|9999[0-9]|100000)$" />
+                        <span class="focus-input100" data-placeholder="Numero mecanografico"></span>
                     </div>
 
                     <div class="wrap-input100">
@@ -82,7 +82,7 @@
     
                     <!-- <div class="text-center p-t-115">
                         <span class="txt1">
-                            Don’t have an account?
+                            Dont have an account?
                         </span>
     
                         <a class="txt2" href="#">
@@ -140,7 +140,7 @@
 
     function validatePassword(){
         if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("As palavras-passe não correspondem.");
+            confirm_password.setCustomValidity("As palavras-passe nao correspondem.");
         } else {
             confirm_password.setCustomValidity('');
         }
@@ -150,16 +150,16 @@
     confirm_password.onkeyup = validatePassword;
 </script>
 
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
 
-<script src="vendor/animsition/js/animsition.min.js"></script>
-<script src="vendor/bootstrap/js/popper.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="vendor/select2/select2.min.js"></script>
-<script src="vendor/daterangepicker/moment.min.js"></script>
-<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<script src="vendor/countdowntime/countdowntime.js"></script>
-<script src="js/main.js"></script>
+<script src="static/vendor/animsition/js/animsition.min.js"></script>
+<script src="static/vendor/bootstrap/js/popper.js"></script>
+<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/vendor/select2/select2.min.js"></script>
+<script src="static/vendor/daterangepicker/moment.min.js"></script>
+<script src="static/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="static/vendor/countdowntime/countdowntime.js"></script>
+<script src="static/js/main.js"></script>
 
 </body>
 </html>
