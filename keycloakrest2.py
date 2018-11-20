@@ -3,23 +3,20 @@ import secrets
 import requests
 import psycopg2
 import sqlite3
-from Student import Student
+from config import *
+from student import Student
+
 def getToken():
-
     url = "https://idp.ect-ua.com/auth/realms/master/protocol/openid-connect/token"
-
-
-    data = {'username': username,
-            'password': password,
+    data = {'username': KEYCLOAK_USERNAME,
+            'password': KEYCLOAK_PASSWORD,
             'client_id': 'admin-cli',
             'grant_type': 'password'}
 
     headers = {'Content-type': 'application/x-www-form-urlencoded'}
 
     response = requests.request("POST", url, data=data, headers=headers)
-
     data = json.loads(response.text)
-
     token = data['access_token']
 
     return token
@@ -47,7 +44,7 @@ def addaccount(data):
     response = requests.request("POST", url, data=payload, headers=headers)
 
     print(response)
-    addPassword(getID(data['username']), data['password'])
+    addPassword(getUserKeycloakId(data['username']), data['password'])
 
 
 def addPassword(id, password):
@@ -68,17 +65,13 @@ def addPassword(id, password):
     response = requests.request("PUT", url, data=payload, headers=headers)
 
 
-def getID(username):
-
-
+def getUserKeycloakId(username):
     url = "http://idp.ect-ua.com/auth/admin/realms/master/users"
-
     querystring = {"username": username}
 
     headers = {
         'Authorization': 'Bearer ' + getToken()
     }
-
 
     response = requests.request("GET", url, headers=headers, params=querystring)
     print(response)
@@ -87,9 +80,7 @@ def getID(username):
 
 
 def addAtributes(id, attributes):
-
     token = getToken()
-
     url = "https://idp.ect-ua.com/auth/admin/realms/master/users/" + id
 
     headers = {
@@ -99,16 +90,14 @@ def addAtributes(id, attributes):
     }
 
     payload = json.dumps({"attributes":attributes})
-
-
     response = requests.request("PUT", url, data=payload, headers=headers)
 
 def connect_db():
-    # conn_string = "host=%s dbname=%s user=%s password=%s" % ("localhost", "testdb", "toms", "password")
-    # conn = psycopg2.connect(conn_string)
-    # cur = conn.cursor()
-    conn = sqlite3.connect('testDB')
+    conn_string = "host=%s dbname=%s user=%s password=%s" % (DB_HOST, DB_NAME, DB_USER, DB_PASSWORD)
+    conn = psycopg2.connect(conn_string)
     cur = conn.cursor()
+    #conn = sqlite3.connect('testDB')
+    #cur = conn.cursor()
 
     return conn, cur
 
@@ -116,44 +105,30 @@ def closedb(cur, conn):
     cur.close()
     conn.close()
 
-def verify_token(token):
-
-    user = get_user_by_token(token)
-    if not user:
-        return None
-    else:
-        user = user[0]
-
-    return Student(user)
-
-    # elif username is None:
-    #     return 2, ''  # new user
-    # elif user[0][0] is not None: #assumindo que o username é o primeiro campo na tabela
-    #     return 1, user[0][0]
-
-
-
 def get_user_by_token(token):
     conn, cur = connect_db()
-
-    query = 'SELECT * from Users WHERE token = ?'
-
+    query = 'SELECT * from ectua_newusers WHERE register_token = ?'
     cur.execute(query, (token,))
-
     result = cur.fetchall()
-
     closedb(cur, conn)
 
-    return result
+    if not result:
+        return None
+    else:
+        result = result[0]
+
+    return Student(result)
 
 def deleteRegister(token):
-    print(token)
+    print('Deleting token: ' + token)
     conn, cur = connect_db()
 
-    query = "DELETE FROM Users WHERE token = ?"
+    query = "DELETE FROM ectua_newusers WHERE register_token = ?"
 
     cur.execute(query, (token,))
     conn.commit()
+
+    print('Finished')
 
     closedb(cur, conn)
 
@@ -162,8 +137,12 @@ def register(data):
 
     #db scheme: username, full name, email, token, nmec, ano de entrada
 
-    username, full_name, email, token, nmec, ano_entrada = get_user_by_token(data['token'])[0]
-    print(get_user_by_token(data['token']))
+    user = get_user_by_token(data['token'])
+    #_id, full_name, username, , email, token, nmec, ano_entrada = get_user_by_token()[0]
+    print(user)
+    username = user.username
+    firstName = user.name.split(' ')[0]
+    lastName = user.name.split(' ')[1]
 
     if username is None:
         username = data['username']  #só vou buscar o username ao post se for um new user
@@ -171,20 +150,20 @@ def register(data):
 
     new_data = {'username': username,
                 'password': password,
-                'Firstname': full_name.split(' ')[0],
-                'Lastname': full_name.split(' ')[1],
-                'email':    email}
+                'Firstname': firstName,
+                'Lastname': lastName,
+                'email':    user.email}
 
 
-    attributes = {'nmec':     nmec,
-                  'ano':      ano_entrada}
+    attributes = {'nmec':     username.nmec,
+                  'ano_matricula':      username.ano}
 
     addaccount(new_data)
-    addAtributes(getID(new_data['username']), attributes)
+    addAtributes(getUserKeycloakId(new_data['username']), attributes)
     deleteRegister(token)
 
 
 
 
 if __name__ == '__main__':
-    verify_token('123456')
+    get_user_by_token('123456')
