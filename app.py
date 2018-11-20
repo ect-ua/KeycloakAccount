@@ -36,9 +36,9 @@ def password():
             return 'Error reading token'
         else:
             if student.userName is not None:
-                return render_template('registerToken.html', token=mytoken, username=student.userName) #old user
+                return render_template('register-token.html', token=mytoken, username=student.userName) #old user
             else:
-                return render_template('registerToken.html', token=mytoken, username='Username') #new user
+                return render_template('register-token.html', token=mytoken, username='Username') #new user
 
     elif request.method == 'POST': #depois de preencherem os campos e carregarem em registar
         register()
