@@ -31,7 +31,7 @@ def index():
 def password():
     if request.method == 'GET':  #Se eles quiserem registar
         mytoken = request.args.get('token', default='', type = str)
-        student = cloak.verify_token(mytoken)
+        student = cloak.get_user_by_token(mytoken)
         if student is None:
             return 'Error reading token'
         else:
