@@ -12,6 +12,7 @@ Python app that interacts with Keycloak's REST API and creates our accounts
   
 ## Coisas a fazer:
 
+- [ ] Implementar todos os `inputs` necessários nos formulários das páginas HTML para passar à base de dados.
 - [x] Melhorar o design das páginas HTML.
 - [ ] Configurar a base de dados.
 - [ ] Criar páginas para apresentar quando ocorrer erros de registo e afins.
@@ -27,4 +28,4 @@ Caso os dados sejam validados e submetidos com sucesso, o servidor vai dar um er
 
 [Página para criação de contas (index.html)](http://sweet.ua.pt/jtsimoes/KeycloakAccount/index.html)
 
-[Página para migração de contas (register-token.html)](http://sweet.ua.pt/jtsimoes/KeycloakAccount/register-token.html)
+[Página para migração de contas (register-token.html)](http://sweet.ua.pt/jtsimoes/KeycloakAccount/templates/register-token.html)
