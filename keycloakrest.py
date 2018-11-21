@@ -29,8 +29,8 @@ def addaccount(data):
     payload = json.dumps({'enabled': 'true',
                'username': data['username'],
                'email': data['email'],
-               'firstName': data['Firstname'],
-               'lastName': data['Lastname']})
+               'firstName': data['firstname'],
+               'lastName': data['lastname']})
 
     print(payload)
 
@@ -150,8 +150,8 @@ def register(data):
 
     new_data = {'username': username,
                 'password': password,
-                'Firstname': firstName,
-                'Lastname': lastName,
+                'firstname': firstName,
+                'lastname': lastName,
                 'email':    user.email}
 
 
