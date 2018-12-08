@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request, render_template
 from flask_restful import Resource, Api
-import keycloakrest as cloak
 import json
+
+import config
+import keycloakrest as cloak
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -27,7 +29,6 @@ def index():
     return open('index.html').read()
 
 @app.route("/register", methods=['POST', 'GET'])
-
 def password():
     if request.method == 'GET':  #Se eles quiserem registar
         mytoken = request.args.get('token', default='', type = str)
