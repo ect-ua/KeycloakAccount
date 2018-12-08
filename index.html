@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Criacao de contas ECT-UA</title>
+    <title>Criação de contas ECT-UA</title>
     <link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
     
     <link rel="stylesheet" type="text/css" href="static/vendor/bootstrap/css/bootstrap.min.css">
@@ -38,17 +38,17 @@
                     </div>
 
                     <div class="wrap-input100">
-                        <input title="Introduz o teu ultimo nome" class="input100" type="text" name="lastname" id="lastname" pattern="^[a-zA-Z\sÀ-ú]*$" required />
-                        <span class="focus-input100" data-placeholder="Ultimo nome"></span>
+                        <input title="Introduz o teu apelido" class="input100" type="text" name="lastname" id="lastname" pattern="^[a-zA-Z\sÀ-ú]*$" required />
+                        <span class="focus-input100" data-placeholder="Apelido"></span>
                     </div>
 
                     <div class="wrap-input100">
-                        <input title="Introduz o teu numero mecanografico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([2-8][0-9]{4}|9[0-8][0-9]{3}|99[0-8][0-9]{2}|999[0-8][0-9]|9999[0-9]|100000)$" />
-                        <span class="focus-input100" data-placeholder="Numero mecanografico"></span>
+                        <input title="Introduz o teu número mecanográfico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([2-8][0-9]{4}|9[0-8][0-9]{3}|99[0-8][0-9]{2}|999[0-8][0-9]|9999[0-9]|100000)$" />
+                        <span class="focus-input100" data-placeholder="Número mecanográfico"></span>
                     </div>
 
                     <div class="wrap-input100">
-                        <input title="Introduz o teu email da UA" class="input100" type="email" name="email" id="email" required pattern=".+@ua.pt" />
+                        <input title="Introduz o teu e-mail da UA" class="input100" type="email" name="email" id="email" required pattern=".+@ua.pt" />
                         <span class="focus-input100" data-placeholder="E-mail"></span>
                     </div>
 
@@ -61,7 +61,7 @@
                         <span class="btn-show-pass">
                             <i class="zmdi zmdi-eye"></i>
                         </span>
-                        <input title="Introduz a tua palavra-passe" class="input100" type="password" name="password" id="password" required />
+                        <input title="Introduz a tua nova palavra-passe para esta conta" class="input100" type="password" name="password" id="password" required />
                         <span class="focus-input100" data-placeholder="Palavra-passe"></span>
                     </div>
                         
@@ -118,8 +118,8 @@
         e.preventDefault();
         var data = $(this).serializeFormJSON();
 
-        if((data["username"]).toLowerCase().endsWith('kek')){
-            return alert("No 'bot' in username");
+        if((data["username"]).toLowerCase().endsWith('bot')){
+            return alert("Desculpa, mas o teu nome de utilizador não pode terminar em bot.");
         }
 
         $.ajax
@@ -140,7 +140,7 @@
 
     function validatePassword(){
         if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("As palavras-passe nao correspondem.");
+            confirm_password.setCustomValidity("As palavras-passe não correspondem.");
         } else {
             confirm_password.setCustomValidity('');
         }
