@@ -4,7 +4,7 @@ import json
 
 import config
 import keycloakrest as cloak
-
+import sys
 
 app = Flask(__name__, static_url_path='/static')
 api = Api(app)
@@ -31,15 +31,15 @@ def index():
 @app.route("/register", methods=['POST', 'GET'])
 def password():
     if request.method == 'GET':  #Se eles quiserem registar
-        mytoken = request.args.get('token', default='', type = str)
+        mytoken = request.args.get('token', default=None, type = str)
         student = cloak.get_user_by_token(mytoken)
         if student is None:
             return 'Error reading token'
         else:
-            if student.userName is not None:
-                return render_template('register-token.html', token=mytoken, username=student.userName) #old user
+            if student.username != '':
+                return render_template('migrate.html', token=mytoken, username=student.username) #old user
             else:
-                return render_template('register-token.html', token=mytoken, username='Username') #new user
+                return render_template('new.html', token=mytoken, username='Username') #new user
 
     elif request.method == 'POST': #depois de preencherem os campos e carregarem em registar
         register()
@@ -48,7 +48,11 @@ def password():
 
 
 def register():
+    print('entrei aqui')
     data = request.get_json()
+    print('#################', file=sys.stderr)
+    print('data is:', file=sys.stderr)
+    print(data, file=sys.stderr)
     if data['username'].lower().endswith('bot'):
         #inserir mais verificações já feitas em javascript
         return None,412
