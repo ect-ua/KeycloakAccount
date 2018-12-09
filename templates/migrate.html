@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Migracao de contas ECT-UA</title>
     <link rel="icon" type="image/png" href="/static/images/icons/favicon.ico"/>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
     <link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -55,6 +53,8 @@
                         <span class="focus-input100" data-placeholder="Confirmar palavra-passe"></span>
                     </div>
 
+                    <input name="token" type="text" style="display:none" value="{{token}}">
+
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
@@ -75,9 +75,17 @@
             </div>
 		</div>
     </div>
-    
-    <!-- <div id="token">{{ token }}</div>     -->
 
+    <script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+    <script src="/static/vendor/animsition/js/animsition.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/popper.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/vendor/select2/select2.min.js"></script>
+    <script src="/static/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="/static/vendor/countdowntime/countdowntime.js"></script>
+    <script src="/static/js/main.js"></script>
     <script>
         (function ($) {
             $.fn.serializeFormJSON = function () {
@@ -132,17 +140,5 @@
         password.onchange = validatePassword;
         confirm_password.onkeyup = validatePassword;
     </script>
-
-    <script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
-
-    <script src="/static/vendor/animsition/js/animsition.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/popper.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/vendor/select2/select2.min.js"></script>
-    <script src="/static/vendor/daterangepicker/moment.min.js"></script>
-    <script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
-    <script src="/static/vendor/countdowntime/countdowntime.js"></script>
-    <script src="/static/js/main.js"></script>
-
 </body>
 </html>
