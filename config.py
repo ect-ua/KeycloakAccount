@@ -1,5 +1,6 @@
 # Este é o ficheiro onde são guardadas as configurações
-DB_HOST = ''
+DB_HOST = 'localhost'
+DB_PORT = '5432'
 DB_NAME = ''
 DB_USER = ''
 DB_PASSWORD = ''
