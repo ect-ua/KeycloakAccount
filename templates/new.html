@@ -23,74 +23,74 @@
 
     <div class="limiter">
         <div class="container-login100">
-            <div class="wrap-login100">
+            <div class="wrap-login100" style="width: 900px;">
                 <form class="login100-form validate-form">
                     <span class="login100-form-title p-b-26">
                         Cria a tua conta
                     </span>
-                    <span class="login100-form-title p-b-48">
-                        <img src="static/images/icons/logo.png" width="100%">
+                    <span class="login100-form-title p-b-48" style="width: 35%;margin: 0 auto;">
+                        <img width="100%" src="/static/images/icons/logo.png">
                     </span>
     
-                    <div class="wrap-input100">
-                        <input title="Introduz o teu primeiro nome" class="input100" type="text" name="firstname" id="firstname" required pattern="^[a-zA-Z\sÀ-ú]*$" />
-                        <span class="focus-input100" data-placeholder="Primeiro nome"></span>
-                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-sm">
+                            
+                            <div class="wrap-input100">
+                                <input title="Introduz o teu primeiro nome" class="input100" type="text" name="firstname" id="firstname" required pattern="^[a-zA-Z\sÀ-ú]*$" />
+                                <span class="focus-input100" data-placeholder="Primeiro nome"></span>
+                            </div>
 
-                    <div class="wrap-input100">
-                        <input title="Introduz o teu apelido" class="input100" type="text" name="lastname" id="lastname" pattern="^[a-zA-Z\sÀ-ú]*$" required />
-                        <span class="focus-input100" data-placeholder="Apelido"></span>
-                    </div>
+                            <div class="wrap-input100">
+                                <input title="Introduz o teu apelido" class="input100" type="text" name="lastname" id="lastname" pattern="^[a-zA-Z\sÀ-ú]*$" required />
+                                <span class="focus-input100" data-placeholder="Apelido"></span>
+                            </div>
 
-                    <div class="wrap-input100">
-                        <input title="Introduz o teu número mecanográfico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([1-9]{1}[0-9]+)$" />
-                        <span class="focus-input100" data-placeholder="Número mecanográfico"></span>
-                    </div>
+                            <div class="wrap-input100">
+                                <input title="Introduz o teu número mecanográfico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([1-9]{1}[0-9]+)$" />
+                                <span class="focus-input100" data-placeholder="Número mecanográfico"></span>
+                            </div>
 
-                    <div class="wrap-input100">
-                        <input title="Introduz o teu e-mail da UA" class="input100" type="email" name="email" id="email" required pattern=".+@ua.pt" />
-                        <span class="focus-input100" data-placeholder="E-mail"></span>
-                    </div>
+                            <div class="wrap-input100">
+                                <input title="Introduz o teu e-mail da UA" class="input100" type="email" name="email" id="email" required pattern=".+@ua.pt" />
+                                <span class="focus-input100" data-placeholder="E-mail"></span>
+                            </div>
 
-                    <div class="wrap-input100">
-                        <input title="Introduz o teu nome de utilizador usando apenas . - e _ como caracteres especiais" class="input100" type="text" name="username" id="username" required pattern="^[a-zA-Z0-9._-]{3,50}$" />
-                        <span class="focus-input100" data-placeholder="Nome de utilizador"></span>
-                    </div>
-    
-                    <div class="wrap-input100">
-                        <span class="btn-show-pass">
-                            <i class="zmdi zmdi-eye"></i>
-                        </span>
-                        <input title="Introduz a tua nova palavra-passe para esta conta" class="input100" type="password" name="password" id="password" required />
-                        <span class="focus-input100" data-placeholder="Palavra-passe"></span>
-                    </div>
-
-                    <input name="token" type="text" style="display:none" value="{{token}}">
-                        
-                    <div class="wrap-input100">
-                        <span class="btn-show-pass">
-                            <i class="zmdi zmdi-eye"></i>
-                        </span>
-                        <input title="Introduz novamente a tua palavra-passe" class="input100" type="password" name="confirm_password" id="confirm_password" />
-                        <span class="focus-input100" data-placeholder="Confirmar palavra-passe"></span>
-                    </div>
-    
-                    <div class="container-login100-form-btn">
-                        <div class="wrap-login100-form-btn">
-                            <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn" type="submit">Submeter</button>
                         </div>
+                    
+                        <div class="col-sm">
+
+                            <div class="wrap-input100">
+                                <input title="Introduz o teu nome de utilizador usando apenas . - e _ como caracteres especiais" class="input100" type="text" name="username" id="username" required pattern="^[a-zA-Z0-9._-]{3,50}$" />
+                                <span class="focus-input100" data-placeholder="Nome de utilizador"></span>
+                            </div>
+    
+                            <div class="wrap-input100">
+                                <span class="btn-show-pass">
+                                    <i class="zmdi zmdi-eye"></i>
+                                </span>
+                                <input title="Introduz a tua nova palavra-passe para esta conta" class="input100" type="password" name="password" id="password" required />
+                                <span class="focus-input100" data-placeholder="Palavra-passe"></span>
+                            </div>
+
+                            <input name="token" type="text" style="display:none" value="{{token}}">
+                        
+                            <div class="wrap-input100">
+                                <span class="btn-show-pass">
+                                    <i class="zmdi zmdi-eye"></i>
+                                </span>
+                                <input title="Introduz novamente a tua palavra-passe" class="input100" type="password" name="confirm_password" id="confirm_password" />
+                                <span class="focus-input100" data-placeholder="Confirmar palavra-passe"></span>
+                            </div>
+    
+                            <div class="container-login100-form-btn">
+                                <div class="wrap-login100-form-btn">
+                                    <div class="login100-form-bgbtn"></div>
+                                    <button class="login100-form-btn" type="submit">Submeter</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-    
-                    <!-- <div class="text-center p-t-115">
-                        <span class="txt1">
-                            Dont have an account?
-                        </span>
-    
-                        <a class="txt2" href="#">
-                            Sign Up
-                        </a>
-                    </div> -->
                 </form>
             </div>
         </div>
