@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/main.css">
 </head>
 
-<body>
+<body id="body">
 
     <div class="limiter">
         <div class="container-login100">
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="wrap-input100">
-                        <input title="Introduz o teu número mecanográfico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([2-8][0-9]{4}|9[0-8][0-9]{3}|99[0-8][0-9]{2}|999[0-8][0-9]|9999[0-9]|100000)$" />
+                        <input title="Introduz o teu número mecanográfico" class="input100" type="text" name="nmec" id="nmec" required pattern="^([1-9]{1}[0-9]+)$" />
                         <span class="focus-input100" data-placeholder="Número mecanográfico"></span>
                     </div>
 
@@ -128,10 +128,8 @@
     })(jQuery);
 
     $('form').submit(function (e) {
-        console.log('entrei aqui');
         e.preventDefault();
         var data = $(this).serializeFormJSON();
-        console.log('data is', data);
 
         if((data["username"]).toLowerCase().endsWith('bot')){
             return alert("Desculpa, mas o teu nome de utilizador não pode terminar em bot.");
@@ -141,10 +139,14 @@
         ({
             type: "POST",
             url: '/register',
-            async: false,
-            //json object to sent to the authentication url
             data: JSON.stringify(data),
-            contentType: 'application/json'
+            contentType: 'application/json',
+            success: function (data) {
+                $('#body').html(data);
+            },
+            error: function (xhr, status) {
+                alert("Ocorreu um erro inesperado");
+            }
         })
     });
 </script>

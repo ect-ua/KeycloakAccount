@@ -61,16 +61,6 @@
                             <button class="login100-form-btn" type="submit">Submeter</button>
 						</div>
 					</div>
-
-					<!-- <div class="text-center p-t-115">
-						<span class="txt1">
-							Dont have an account?
-						</span>
-
-						<a class="txt2" href="#">
-							Sign Up
-						</a>
-					</div> -->
 				</form>
             </div>
 		</div>
@@ -109,18 +99,21 @@
         $('form').submit(function (e) {
             e.preventDefault();
             var data = $(this).serializeFormJSON();
-            data['token'] = document.getElementById("token").innerText
-            if((data["username"]).toLowerCase().endsWith('kek')){
-                return alert("No 'bot' in username")
+            if((data["username"]).toLowerCase().endsWith('bot')){
+                return alert("Desculpa, mas o teu nome de utilizador não pode terminar em bot.");
             }
             $.ajax
             ({
                 type: "POST",
                 url: '/register',
-                async: false,
-                //json object to sent to the authentication url
                 data: JSON.stringify(data),
-                contentType: 'application/json'
+                contentType: 'application/json',
+                success: function (data) {
+                    $('#body').html(data);
+                },
+                error: function (xhr, status) {
+                    alert("Ocorreu um erro inesperado");
+                }
             })
         });
     </script>
