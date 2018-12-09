@@ -3,6 +3,7 @@ import secrets
 import requests
 import psycopg2
 import sqlite3
+import sys
 from config import *
 from student import Student
 
@@ -93,7 +94,7 @@ def addAtributes(id, attributes):
     response = requests.request("PUT", url, data=payload, headers=headers)
 
 def connect_db():
-    conn_string = "host=%s dbname=%s user=%s password=%s" % (DB_HOST, DB_NAME, DB_USER, DB_PASSWORD)
+    conn_string = "host=%s port=%s dbname=%s user=%s password=%s" % (DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD)
     conn = psycopg2.connect(conn_string)
     cur = conn.cursor()
     #conn = sqlite3.connect('testDB')
@@ -106,11 +107,13 @@ def closedb(cur, conn):
     conn.close()
 
 def get_user_by_token(token):
-    conn, cur = connect_db()
-    query = 'SELECT * from ectua_newusers WHERE register_token = ?'
-    cur.execute(query, (token,))
-    result = cur.fetchall()
-    closedb(cur, conn)
+    result = None
+    if (token != None):
+        conn, cur = connect_db()
+        query = 'SELECT * from ectua_newusers WHERE register_token = %s'
+        cur.execute(query, (token,))
+        result = cur.fetchall()
+        closedb(cur, conn)
 
     if not result:
         return None
@@ -123,7 +126,7 @@ def deleteRegister(token):
     print('Deleting token: ' + token)
     conn, cur = connect_db()
 
-    query = "DELETE FROM ectua_newusers WHERE register_token = ?"
+    query = "DELETE FROM ectua_newusers WHERE register_token = %s"
 
     cur.execute(query, (token,))
     conn.commit()
@@ -134,33 +137,57 @@ def deleteRegister(token):
 
 
 def register(data):
+    print('this is register')
+    print(data)
+    token = data['token']
+    dbuser = get_user_by_token(token)
+    if dbuser is None:
+        return
 
-    #db scheme: username, full name, email, token, nmec, ano de entrada
-
-    user = get_user_by_token(data['token'])
-    #_id, full_name, username, , email, token, nmec, ano_entrada = get_user_by_token()[0]
-    print(user)
-    username = user.username
-    firstName = user.name.split(' ')[0]
-    lastName = user.name.split(' ')[1]
-
-    if username is None:
-        username = data['username']  #só vou buscar o username ao post se for um new user
+    username = dbuser.username
+    fullName = dbuser.name
+    nmec = dbuser.nmec
+    email = dbuser.email
+    firstName = ''
+    lastName = ''
+    ano = dbuser.ano
     password = data['password']
+
+    if username == '':
+        # novo utilizador
+        print('this is a new user')
+        username = data['username']
+        firstName = data['firstname']
+        lastName = data['lastname']
+        nmec = data['nmec']
+    else:
+        splitUserFullName = fullName.split(' ')
+        if (len(splitUserFullName) > 0):
+            firstName = ' '.join([str(x) for x in splitUserFullName[0:len(splitUserFullName)-1]])
+            if (len(splitUserFullName) > 1):
+                lastName = splitUserFullName[-1]
 
     new_data = {'username': username,
                 'password': password,
                 'firstname': firstName,
                 'lastname': lastName,
-                'email':    user.email}
+                'email':    email}
 
 
-    attributes = {'nmec':     username.nmec,
-                  'ano_matricula':      username.ano}
+    attributes = {'nmec': nmec,
+                  'ano_matricula': ano}
 
+    print('#################')
+    print('newData is')
+    print(new_data)
+    print('attributes is')
+    print(new_data)
+    print('#################')
+
+    
     addaccount(new_data)
-    addAtributes(getUserKeycloakId(new_data['username']), attributes)
-    deleteRegister(token)
+    addAtributes(getUserKeycloakId(username), attributes)
+    #deleteRegister(token)
 
 
 
