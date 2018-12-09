@@ -33,9 +33,6 @@ def addaccount(data):
                'firstName': data['firstname'],
                'lastName': data['lastname']})
 
-    print(payload)
-
-
     headers = {
         'Content-Type': "application/json",
         'Authorization': 'Bearer ' + token,
@@ -43,9 +40,9 @@ def addaccount(data):
     }
 
     response = requests.request("POST", url, data=payload, headers=headers)
-
-    print(response)
-    addPassword(getUserKeycloakId(data['username']), data['password'])
+    userid = getUserKeycloakId(data['username'])
+    if userid != None:
+        addPassword(userid, data['password'])
 
 
 def addPassword(id, password):
@@ -75,9 +72,10 @@ def getUserKeycloakId(username):
     }
 
     response = requests.request("GET", url, headers=headers, params=querystring)
-    print(response)
-    print(response.url)
-    return response.json()[0]['id']
+    if response != None and response.json() != None and len(response.json()) > 1:
+        return response.json()[0]['id']
+    else:
+        return None
 
 
 def addAtributes(id, attributes):
@@ -108,7 +106,7 @@ def closedb(cur, conn):
 
 def get_user_by_token(token):
     result = None
-    if (token != None):
+    if token != None:
         conn, cur = connect_db()
         query = 'SELECT * from ectua_newusers WHERE register_token = %s'
         cur.execute(query, (token,))
@@ -123,26 +121,18 @@ def get_user_by_token(token):
     return Student(result)
 
 def deleteRegister(token):
-    print('Deleting token: ' + token)
     conn, cur = connect_db()
-
     query = "DELETE FROM ectua_newusers WHERE register_token = %s"
-
     cur.execute(query, (token,))
     conn.commit()
-
-    print('Finished')
-
     closedb(cur, conn)
 
 
 def register(data):
-    print('this is register')
-    print(data)
     token = data['token']
     dbuser = get_user_by_token(token)
-    if dbuser is None:
-        return
+    if dbuser == None:
+        return False
 
     username = dbuser.username
     fullName = dbuser.name
@@ -155,7 +145,6 @@ def register(data):
 
     if username == '':
         # novo utilizador
-        print('this is a new user')
         username = data['username']
         firstName = data['firstname']
         lastName = data['lastname']
@@ -177,17 +166,14 @@ def register(data):
     attributes = {'nmec': nmec,
                   'ano_matricula': ano}
 
-    print('#################')
-    print('newData is')
-    print(new_data)
-    print('attributes is')
-    print(new_data)
-    print('#################')
-
     
     addaccount(new_data)
-    addAtributes(getUserKeycloakId(username), attributes)
-    #deleteRegister(token)
+    userid = getUserKeycloakId(username)
+    if (userid):
+        addAtributes(userid, attributes)
+        deleteRegister(token)
+        return True
+    return False
 
 
 
